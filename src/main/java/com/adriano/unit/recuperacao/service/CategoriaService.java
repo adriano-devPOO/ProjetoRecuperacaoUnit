@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.adriano.unit.recuperacao.dominio.Categoria;
+import com.adriano.unit.recuperacao.dto.CategoriaDTO;
 import com.adriano.unit.recuperacao.exceptions.ObjectNotFoundException;
 import com.adriano.unit.recuperacao.repositorios.CategoriaRepositorio;
 
@@ -29,6 +30,13 @@ public class CategoriaService {
 	
 	public Categoria create (Categoria objeto) {
 		objeto.setId(null);
+		return repositorio.save(objeto);
+	}
+
+	public Categoria update(Integer id, CategoriaDTO objetoDTO) {
+		Categoria objeto = findById(id);
+		objeto.setNome(objetoDTO.getNome());
+		objeto.setDescricao(objetoDTO.getDescricao());
 		return repositorio.save(objeto);
 	}
 }
