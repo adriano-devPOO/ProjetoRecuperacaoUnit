@@ -1,5 +1,6 @@
 package com.adriano.unit.recuperacao.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,4 +22,10 @@ public class CategoriaService {
 		return objeto.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Categoria.class.getName()));
 	}
+	
+	public List<Categoria> findAll(){
+		return repositorio.findAll();
+	}
+	
+	
 }
