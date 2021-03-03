@@ -1,6 +1,6 @@
 package com.adriano.unit.recuperacao.exceptions;
 
-public class StandardError {
+public class StandardError{
 	
 	private long timestamp;
 	private Integer status;
