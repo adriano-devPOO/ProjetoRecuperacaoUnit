@@ -1,5 +1,6 @@
 package com.adriano.unit.recuperacao.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,4 +21,24 @@ public class LivroService {
 		return objeto.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! ID: " + id + ", Tipo: " + LivroService.class.getName()));
 	}
+
+	public List<Livro> findAll() {
+		return repositorio.findAll();
+	}
+
+	public Livro update(Integer id, Livro objeto) {
+		Livro novoObjeto = findById(id);
+		updateData(novoObjeto, objeto);
+//		objeto.setId(objeto.getId());
+//		objeto.setTitulo(objeto.getTitulo());
+		return repositorio.save(novoObjeto);
+
+	}
+
+	private void updateData(Livro novoObjeto, Livro objeto) {
+		novoObjeto.setTitulo(objeto.getTitulo());
+		novoObjeto.setNomeAutor(objeto.getNomeAutor());
+		novoObjeto.setTexto(objeto.getTexto());
+	}
+
 }
