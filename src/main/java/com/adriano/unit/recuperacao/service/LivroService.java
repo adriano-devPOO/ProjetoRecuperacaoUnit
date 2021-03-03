@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.adriano.unit.recuperacao.dominio.Categoria;
 import com.adriano.unit.recuperacao.dominio.Livro;
 import com.adriano.unit.recuperacao.exceptions.ObjectNotFoundException;
 import com.adriano.unit.recuperacao.repositorios.LivroRepositorio;
@@ -15,6 +16,9 @@ public class LivroService {
 
 	@Autowired
 	private LivroRepositorio repositorio;
+	
+	@Autowired
+	private CategoriaService categoriaService;
 
 	public Livro findById(Integer id) {
 		Optional<Livro> objeto = repositorio.findById(id);
@@ -39,6 +43,13 @@ public class LivroService {
 		novoObjeto.setTitulo(objeto.getTitulo());
 		novoObjeto.setNomeAutor(objeto.getNomeAutor());
 		novoObjeto.setTexto(objeto.getTexto());
+	}
+
+	public Livro create(Integer idCat, Livro objeto) {
+		objeto.setId(null);
+		Categoria cat = categoriaService.findById(idCat);
+		objeto.setCategoria(cat);
+		return repositorio.save(objeto);
 	}
 
 }
