@@ -23,16 +23,16 @@ public class Livro implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@NotEmpty (message = "Campo nome do autor obrigatório.")
-	@Length(min = 3, max = 50, message = "O campo nome do autor deve ter entre 3 e 50 caracteres.")
-	private String nomeAutor;
-	
-	@NotEmpty (message = "Campo título obrigatório.")
-	@Length(min = 3, max = 50, message = "O campo título deve ter entre 3 e 50 caracteres.")
+	@NotEmpty(message = "Campo TITULO é requerido")
+	@Length(min = 3, max = 50, message = "O campo TITULO deve ter entre 3 e 50 caracteres")
 	private String titulo;
 	
-	@NotEmpty (message = "Campo texto obrigatório.")
-	@Length(min = 10, max = 2000000, message = "O campo texto deve ter entre 10 e 2.000.000 caracteres.")
+	@NotEmpty(message = "Campo NOME DO AUTOR é requerido")
+	@Length(min = 3, max = 50, message = "O campo NOME DO AUTOR deve ter entre 3 e 50 caracteres")
+	private String nome_autor;
+	
+	@NotEmpty(message = "Campo TEXTO é requerido")
+	@Length(min = 10, max = 2000000, message = "O campo TEXTO deve ter entre 10 e 2.000.000 caracteres")
 	private String texto;
 
 	@JsonIgnore
@@ -41,13 +41,14 @@ public class Livro implements Serializable{
 	private Categoria categoria;
 
 	public Livro() {
+		super();
 	}
 
-	public Livro(Integer id, String nomeAutor, String titulo, String texto, Categoria categoria) {
+	public Livro(Integer id, String titulo, String nome_autor, String texto, Categoria categoria) {
 		super();
 		this.id = id;
-		this.nomeAutor = nomeAutor;
 		this.titulo = titulo;
+		this.nome_autor = nome_autor;
 		this.texto = texto;
 		this.categoria = categoria;
 	}
@@ -60,20 +61,20 @@ public class Livro implements Serializable{
 		this.id = id;
 	}
 
-	public String getNomeAutor() {
-		return nomeAutor;
-	}
-
-	public void setNomeAutor(String nomeAutor) {
-		this.nomeAutor = nomeAutor;
-	}
-
 	public String getTitulo() {
 		return titulo;
 	}
 
 	public void setTitulo(String titulo) {
 		this.titulo = titulo;
+	}
+
+	public String getNome_autor() {
+		return nome_autor;
+	}
+
+	public void setNome_autor(String nome_autor) {
+		this.nome_autor = nome_autor;
 	}
 
 	public String getTexto() {

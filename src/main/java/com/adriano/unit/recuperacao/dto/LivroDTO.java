@@ -13,12 +13,13 @@ public class LivroDTO implements Serializable {
 
 	public LivroDTO() {
 		super();
+		// TODO Auto-generated constructor stub
 	}
 
-	public LivroDTO(Livro objeto) {
+	public LivroDTO(Livro obj) {
 		super();
-		this.id = objeto.getId();
-		this.titulo = objeto.getTitulo();
+		this.id = obj.getId();
+		this.titulo = obj.getTitulo();
 	}
 
 	public Integer getId() {

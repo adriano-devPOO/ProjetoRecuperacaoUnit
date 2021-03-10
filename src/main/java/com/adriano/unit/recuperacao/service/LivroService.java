@@ -11,51 +11,48 @@ import com.adriano.unit.recuperacao.dominio.Livro;
 import com.adriano.unit.recuperacao.exceptions.ObjectNotFoundException;
 import com.adriano.unit.recuperacao.repositorios.LivroRepositorio;
 
+
 @Service
 public class LivroService {
 
 	@Autowired
-	private LivroRepositorio repositorio;
-	
+	private LivroRepositorio repository;
+
 	@Autowired
 	private CategoriaService categoriaService;
 
 	public Livro findById(Integer id) {
-		Optional<Livro> objeto = repositorio.findById(id);
-		return objeto.orElseThrow(() -> new ObjectNotFoundException(
-				"Objeto não encontrado! ID: " + id + ", Tipo: " 
-		+ LivroService.class.getName()));
+		Optional<Livro> obj = repository.findById(id);
+		return obj.orElseThrow(() -> new ObjectNotFoundException(
+				"Objeto não encontrado! Id: " + id + ", Tipo: " + Livro.class.getName()));
 	}
 
-	public List<Livro> findAll() {
-		return repositorio.findAll();
+	public List<Livro> findAll(Integer id_cat) {
+		categoriaService.findById(id_cat);
+		return repository.findAllByCategoria(id_cat);
 	}
 
-	public Livro update(Integer id, Livro objeto) {
-		Livro novoObjeto = findById(id);
-		updateData(novoObjeto, objeto);
-//		objeto.setId(objeto.getId());
-//		objeto.setTitulo(objeto.getTitulo());
-		return repositorio.save(novoObjeto);
-
+	public Livro update(Integer id, Livro obj) {
+		Livro newObj = findById(id);
+		updateData(newObj, obj);
+		return repository.save(newObj);
 	}
 
-	private void updateData(Livro novoObjeto, Livro objeto) {
-		novoObjeto.setTitulo(objeto.getTitulo());
-		novoObjeto.setNomeAutor(objeto.getNomeAutor());
-		novoObjeto.setTexto(objeto.getTexto());
+	private void updateData(Livro newObj, Livro obj) {
+		newObj.setTitulo(obj.getTitulo());
+		newObj.setNome_autor(obj.getNome_autor());
+		newObj.setTexto(obj.getTexto());
 	}
 
-	public Livro create(Integer idCat, Livro objeto) {
-		objeto.setId(null);
-		Categoria cat = categoriaService.findById(idCat);
-		objeto.setCategoria(cat);
-		return repositorio.save(objeto);
+	public Livro create(Integer id_cat, Livro obj) {
+		obj.setId(null);
+		Categoria cat = categoriaService.findById(id_cat);
+		obj.setCategoria(cat);
+		return repository.save(obj);
 	}
 
 	public void delete(Integer id) {
 		Livro obj = findById(id);
-		repositorio.delete(obj);	
+		repository.delete(obj);
 	}
-
 }
